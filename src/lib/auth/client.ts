@@ -79,10 +79,12 @@ export interface ResetPasswordParams {
   email: string;
 }
 
+const BASE_URL = 'http://13.51.86.33:3010';
+
 class AuthClient {
   async signUp(params: SignUpParams): Promise<{ error?: string }> {
     // Make API request
-    const response = await axios.post('http://localhost:3010/users/registerUser', params);
+    const response = await axios.post(BASE_URL + '/users/registerUser', params);
 
     if (response.data.message == 'User with similar email already exists!') {
       return { error: response.data.message };
@@ -98,7 +100,7 @@ class AuthClient {
 
   async signInWithPassword(params: SignInWithPasswordParams): Promise<{ error?: string }> {
     // Make API request
-    const response = await axios.post('http://localhost:3010/users/loginUser', params);
+    const response = await axios.post(BASE_URL + '/users/loginUser', params);
 
     if (response.data.message == 'Invalid credentials') {
       return { error: 'Invalid credentials' };
@@ -122,14 +124,14 @@ class AuthClient {
     if (!id) {
       return { data: null };
     }
-    const response = await axios.post('http://localhost:3010/users/getUser', { id });
+    const response = await axios.post(BASE_URL + '/users/getUser', { id });
     // console.log("user", response.data.user)
     return { data: response?.data?.user ?? null, error: response?.data?.error ?? null };
   }
 
   async updateUser(params: UserUpdateParams): Promise<{ data?: User | null; error?: string }> {
     // Make API request
-    const response = await axios.patch('http://localhost:3010/users/updateUser', params);
+    const response = await axios.patch(BASE_URL + '/users/updateUser', params);
     if (response.data.message != 'User updated') {
       return { error: 'Failed to update data' };
     }
