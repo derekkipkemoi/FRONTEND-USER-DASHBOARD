@@ -5,8 +5,8 @@ module.exports = {
       script: 'yarn',
       args: 'start',
       env: {
-        NODE_ENV: 'production'
-      }
-    }
-  ]
+        NODE_ENV: 'production',
+      },
+    },
+  ],
 };
