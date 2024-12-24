@@ -20,6 +20,8 @@ export interface PaymentRequestSTK {
   redirect_url: string;
 }
 
+const BASE_URL = 'http://13.51.86.33:3010';
+
 class OrderClient {
   async requestMpesaSTKPaymentasync(
     newSTKpush: PaymentRequestSTK
@@ -29,7 +31,7 @@ class OrderClient {
       return { error: 'User ID not found in local storage' };
     }
     try {
-      const response: any = await axios.post(`http://localhost:3010/users/orders/mpesaSTK`, newSTKpush, {
+      const response: any = await axios.post(`${BASE_URL}/users/orders/mpesaSTK`, newSTKpush, {
         headers: { 'Content-Type': 'application/json' },
       });
 
@@ -55,7 +57,7 @@ class OrderClient {
       return { error: 'User ID not found in local storage' };
     }
     try {
-      const response = await axios.post(`http://localhost:3010/users/${userId}/orders/createOrder`, newOrder, {
+      const response = await axios.post(`${BASE_URL}/users/${userId}/orders/createOrder`, newOrder, {
         headers: { 'Content-Type': 'application/json' },
       });
 
@@ -86,7 +88,7 @@ class OrderClient {
     }
     try {
       const response = await axios.post(
-        `http://localhost:3010/users/${userId}/orders/${orderId}/saveOrderTemplate`,
+        `${BASE_URL}/users/${userId}/orders/${orderId}/saveOrderTemplate`,
         templateData,
         {
           headers: { 'Content-Type': 'application/json' },
@@ -120,7 +122,7 @@ class OrderClient {
     }
     try {
       const response = await axios.post(
-        `http://localhost:3010/users/${userId}/orders/${orderId}/updateResumeFile`,
+        `${BASE_URL}/users/${userId}/orders/${orderId}/updateResumeFile`,
         updatedResume,
         {
           headers: { 'Content-Type': 'multipart/form-data' },
@@ -155,7 +157,7 @@ class OrderClient {
 
     try {
       const response: any = await axios.post(
-        `http://localhost:3010/users/${userId}/orders/${orderId}/updateExtraServices`,
+        `${BASE_URL}/users/${userId}/orders/${orderId}/updateExtraServices`,
         updatedServiceDetails,
         {
           headers: { 'Content-Type': 'application/json' },
@@ -185,7 +187,7 @@ class OrderClient {
       if (!userId) {
         return { error: 'User ID not found in local storage' };
       }
-      const response = await axios.get(`http://localhost:3010/users/${userId}/orders/${orderId}/getOrder`, {
+      const response = await axios.get(`${BASE_URL}/users/${userId}/orders/${orderId}/getOrder`, {
         headers: { 'Content-Type': 'application/json' },
       });
 
@@ -209,7 +211,7 @@ class OrderClient {
   //   }
   //   try {
   //     // Make API request with the dynamic user ID
-  //     const response = await axios.post(`http://localhost:3010/users/orders/mpesaSTK`, newSTKpush, {
+  //     const response = await axios.post(`${BASE_URL}/users/orders/mpesaSTK`, newSTKpush, {
   //       headers: {
   //         'Content-Type': 'application/json', // Set appropriate content type for JSON data
   //       },
@@ -239,7 +241,7 @@ class OrderClient {
   //   }
   //   try {
   //     // Make API request with the dynamic user ID
-  //     const response = await axios.post(`http://localhost:3010/users/${userId}/orders/createOrder`, newOrder, {
+  //     const response = await axios.post(`${BASE_URL}/users/${userId}/orders/createOrder`, newOrder, {
   //       headers: {
   //         'Content-Type': 'application/json', // Set appropriate content type for JSON data
   //       },
@@ -276,7 +278,7 @@ class OrderClient {
   //   try {
   //     // Make API request to update resume for a specific order
   //     const response = await axios.post(
-  //       `http://localhost:3010/users/${userId}/orders/${orderId}/saveOrderTemplate`,
+  //       `${BASE_URL}/users/${userId}/orders/${orderId}/saveOrderTemplate`,
   //       templateData,
   //       {
   //         headers: {
@@ -316,7 +318,7 @@ class OrderClient {
   //   try {
   //     // Make API request to update resume for a specific order
   //     const response = await axios.post(
-  //       `http://localhost:3010/users/${userId}/orders/${orderId}/updateResumeFile`,
+  //       `${BASE_URL}/users/${userId}/orders/${orderId}/updateResumeFile`,
   //       updatedResume,
   //       {
   //         headers: {
@@ -356,7 +358,7 @@ class OrderClient {
   //   try {
   //     // Make API request to update extra services for a specific order
   //     const response = await axios.post(
-  //       `http://localhost:3010/users/${userId}/orders/${orderId}/updateExtraServices`,
+  //       `${BASE_URL}/users/${userId}/orders/${orderId}/updateExtraServices`,
   //       updatedServiceDetails,
   //       {
   //         headers: {
@@ -390,7 +392,7 @@ class OrderClient {
   //     if (!userId) {
   //       return { error: 'User ID not found in local storage' };
   //     }
-  //     const response = await axios.get(`http://localhost:3010/users/${userId}/orders/${orderId}/getOrder`, {
+  //     const response = await axios.get(`${BASE_URL}/users/${userId}/orders/${orderId}/getOrder`, {
   //       headers: {
   //         'Content-Type': 'application/json', // Set appropriate content type for JSON data
   //       },
@@ -414,7 +416,7 @@ class OrderClient {
         return { error: 'User ID not found in local storage' };
       }
 
-      const response = await axios.get(`http://localhost:3010/users/${userId}/orders/getUserOrders`);
+      const response = await axios.get(`${BASE_URL}/users/${userId}/orders/getUserOrders`);
 
       if (response.data?.orders) {
         // Ensure that `response.data.order` is always an array
@@ -433,7 +435,7 @@ class OrderClient {
 
   async deleteOrder(orderId: string): Promise<{ error?: string; message?: string }> {
     try {
-      const response = await axios.post(`http://localhost:3010/users/orders/${orderId}/deleteOrder`);
+      const response = await axios.post(`${BASE_URL}/users/orders/${orderId}/deleteOrder`);
       if (response.data.message === 'Order deleted successfully') {
         return { message: response.data.message }; // Return the order
       }
@@ -447,7 +449,7 @@ class OrderClient {
   async updateOrderStatus(orderId: string, status: string): Promise<{ error?: string; message?: string }> {
     try {
       // Pass the status in the body of the POST request
-      const response = await axios.post(`http://localhost:3010/users/orders/${orderId}/updateOrderStatus`, {
+      const response = await axios.post(`${BASE_URL}/users/orders/${orderId}/updateOrderStatus`, {
         status,
       });
 
@@ -476,7 +478,7 @@ class OrderClient {
     }
     try {
       // Make API request to update resume for a specific order
-      const response = await axios.post(`http://localhost:3010/users/orders/${orderId}/completed`, completed, {
+      const response = await axios.post(`${BASE_URL}/users/orders/${orderId}/completed`, completed, {
         headers: {
           'Content-Type': 'multipart/form-data', // Set appropriate content type for file uploads
         },
@@ -509,7 +511,7 @@ class OrderClient {
     }
     try {
       // Make API request to update resume for a specific order
-      const response = await axios.post(`http://localhost:3010/users/orders/${orderId}/downloadFile`, {
+      const response = await axios.post(`${BASE_URL}/users/orders/${orderId}/downloadFile`, {
         fileName: completedFile,
       });
 
