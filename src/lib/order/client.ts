@@ -20,7 +20,7 @@ export interface PaymentRequestSTK {
   redirect_url: string;
 }
 
-const BASE_URL = 'http://13.51.86.33:3010';
+const BASE_URL = 'http://localhost:3010';
 
 class OrderClient {
   async requestMpesaSTKPaymentasync(

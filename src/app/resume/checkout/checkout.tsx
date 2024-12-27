@@ -48,11 +48,11 @@ function CheckoutForm() {
       first_name: user.firstName,
       last_name: user.lastName,
       email: user.email,
-      host: 'https://yourwebsite.com', // You can set this as needed
+      host: 'https://app.prowriterservices.com', // You can set this as needed
       amount, // Amount should be fetched or calculated as per your business logic
       phone_number: user.phone,
       api_ref: 'test', // Provide a dynamic API ref as needed
-      redirect_url: 'http://localhost:3000/resume/thankyou', // Redirect URL after payment
+      redirect_url: 'http://app.prowriterservices.com/resume/thankyou', // Redirect URL after payment
     };
     setIsPending(true);
 
