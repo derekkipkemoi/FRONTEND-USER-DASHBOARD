@@ -4,7 +4,8 @@ module.exports = {
       name: 'nextjs-app',
       script: 'yarn',
       args: 'start',
-      interpreter: '/bin/bash',
+      interpreter: 'bash',
+      cwd: './', // Current directory where the command is executed
       env: {
         NODE_ENV: 'production',
       },
